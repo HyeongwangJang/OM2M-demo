@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    *{
+      box-sizing: border-box;
+    }
+    .container{
+      display: flex;
+      flex-wrap: wrap;
+      width: 900px;
+      margin: 0 auto; padding: 16px;
+      border: 1px solid #000;
+    }
+    .wrapper{
+      display: flex;
+      flex-direction: column;
+      width: 280px;
+      margin: 0 auto;
+      border: 1px solid #000;
+    }
+    input{
+      width: calc(100% - 16px);
+      margin: 8px; padding: 8px;
+    }
+    button{
+      width: calc(100% - 16px);
+      margin: 8px; padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="wrapper">
+      <input id="ae_1" type="text" placeholder="AE 이름" />
+      <button id="aeBtn">AE 생성</button>
+    </div>
+    <div class="wrapper">
+      <input id="ae_2" type="text" placeholder="AE 이름" />
+      <input id="container_2" type="text" placeholder="컨테이너 이름" />
+      <button id="containerBtn">컨테이너 생성</button>
+    </div>
+    <div class="wrapper">
+      <input id="ae_3" type="text" placeholder="AE 이름" />
+      <input id="container_3" type="text" placeholder="컨테이너 이름" />
+      <input id="cin_3" type="text" placeholder="이름" />
+      <button id="cinBtn">CIN 생성</button>
+    </div>
+    <div class="wrapper">
+      <input id="ae_4" type="text" placeholder="AE 이름" />
+      <input id="container_4" type="text" placeholder="컨테이너 이름" />
+      <button id="subsBtn">구독 좋아요</button>
+    </div>
+  </div>
+
+  <script>
+    const config = {
+      defaultURL: "http://localhost:8081"
+    }
+
+    const $aeBtn = document.querySelector('#aeBtn');
+    const $ae_1 = document.querySelector('#ae_1');
+    const $ae_2 = document.querySelector('#ae_2');
+    const $ae_3 = document.querySelector('#ae_3');
+    const $ae_4 = document.querySelector('#ae_4');
+
+    const $containerBtn = document.querySelector('#containerBtn');
+    const $container_2 = document.querySelector('#container_2');
+    const $container_3 = document.querySelector('#container_3');
+    const $container_4 = document.querySelector('#container_4');
+
+    const $cinBtn = document.querySelector('#cinBtn');
+    const $cin_3 = document.querySelector('#cin_3');
+
+    const $subsBtn = document.querySelector('#subsBtn');
+
+    $aeBtn.addEventListener('click', () => {
+      const ae = $ae_1.value;
+      const url = config.defaultURL + "/ae/new";
+      const param = {
+        ae: ae
+      };
+      
+      fetch(url, {
+        method : "POST",
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(param),
+      });
+    });
+
+    $containerBtn.addEventListener('click', () => {
+      const ae = $ae_2.value;
+      const container = $container_2.value;
+      const url = config.defaultURL + "/container";
+      const param = {
+        ae: ae,
+        container: container,
+      }
+
+      fetch(url, {
+        method : "POST",
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(param),
+      });
+    });
+
+    $cinBtn.addEventListener('click', () => {
+      const ae = $ae_3.value;
+      const container = $container_3.value;
+      const cin = $cin_3.value;
+      const url = config.defaultURL + "/cin";
+      const param = {
+        ae: ae,
+        container: container,
+        cin: cin,
+      }
+
+      fetch(url, {
+        method : "POST",
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(param),
+      });
+    });
+
+    $subsBtn.addEventListener('click', () => {
+      const ae = $ae_4.value;
+      const container = $container_4.value;
+      const url = config.defaultURL + "/subs";
+      const param = {
+        ae: ae,
+        container: container,
+      }
+
+      fetch(url, {
+        method: "POST",
+        headers : {
+          'Content-Type': 'application/json'
+        },
+        body : JSON.stringify(param),
+      });
+    });
+  </script>
+</body>
+</html>
